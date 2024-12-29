@@ -1,0 +1,23 @@
+spring:
+  datasource:
+    username: root
+    url: jdbc:mysql://localhost:3306/progress_tracker
+    password: root
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    hibernate:
+      ddl-auto: update
+    show-sql: 'true'
+  application:
+    name: progress-tracker-api
+server:
+  port: ${PORT:8080}
+services:
+  - type: web
+    name: progress-tracker-api
+    env: java
+    buildCommand: ./mvn clean install
+    startCommand: java -jar target/progress-tracker-api-0.0.1-SNAPSHOT.jar
+    plan: free
