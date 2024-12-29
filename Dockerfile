@@ -1,5 +1,5 @@
 # Stage 1: Build the application
-FROM maven:3.9.4-eclipse-temurin-17 AS build
+FROM maven:3.9-amazoncorretto-17-debian-bookworm AS build
 
 # Set the working directory for the build stage
 WORKDIR /app
@@ -8,7 +8,7 @@ WORKDIR /app
 COPY pom.xml ./
 
 # Download dependencies (caching them for faster builds in future)
-RUN mvn dependency:go-offline
+RUN mvn clean package -DskipTests
 
 # Copy source code into the container
 COPY src ./src
@@ -16,8 +16,8 @@ COPY src ./src
 # Build the application (skip tests for faster builds)
 RUN mvn clean package -DskipTests
 
-# Stage 2: Create a runtime image with JRE
-FROM eclipse-temurin:17-jre
+# Stage 2: Create a runtime image with JDK
+FROM openjdk:24-ea-21-slim-bullseye
 
 # Set the working directory for the runtime container
 WORKDIR /app
