@@ -3,6 +3,7 @@ spring:
     username: root
     url: jdbc:mysql://localhost:3306/progress_tracker
     password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     properties:
       hibernate:
@@ -14,10 +15,3 @@ spring:
     name: progress-tracker-api
 server:
   port: ${PORT:8080}
-services:
-  - type: web
-    name: progress-tracker-api
-    env: java
-    buildCommand: ./mvn clean install
-    startCommand: java -jar target/progress-tracker-api-0.0.1-SNAPSHOT.jar
-    plan: free
