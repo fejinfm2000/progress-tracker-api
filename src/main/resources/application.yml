@@ -18,6 +18,6 @@ services:
   - type: web
     name: progress-tracker-api
     env: java
-    buildCommand: ./mvnw clean package
+    buildCommand: ./mvn clean install
     startCommand: java -jar target/progress-tracker-api-0.0.1-SNAPSHOT.jar
     plan: free
