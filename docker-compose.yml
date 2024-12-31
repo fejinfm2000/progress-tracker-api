@@ -1,7 +1,32 @@
 version: '1.0.0'
+
 services:
+  db:
+    image: mysql:8
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: progress_tracker
+    networks:
+      - app-network
+    ports:
+      - "3306:3306"
+
   app:
     build: .
+    container_name: progress-tracker-api
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/progress_tracker  # Use the 'db' service name here
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - db  # Ensure the app waits for the db service to start
+    networks:
+      - app-network
     ports:
       - "8080:8080"
     restart: always
+
+networks:
+  app-network:
+    driver: bridge

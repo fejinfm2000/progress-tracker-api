@@ -1,7 +1,0 @@
-services:
-  - type: web
-    name: progress-tracker-api
-    env: docker
-    dockerfilePath: ./Dockerfile
-    plan: free
-    healthCheckPath: /api/tracker
