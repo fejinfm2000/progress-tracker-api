@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://db:3306/progress_tracker
+    url: jdbc:mysql://${DB_HOST}:3306/progress_tracker
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
