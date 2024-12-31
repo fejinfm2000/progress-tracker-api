@@ -20,6 +20,7 @@ public class WebController {
 
     @GetMapping
     public String aliveCheck() {
+        System.out.println("Am I Live");
         return "I am Alive";
     }
 

@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: root
-    url: jdbc:mysql://db:3306/progress_tracker  # Use the service name 'db' instead of 'localhost'
+    url: jdbc:mysql://db:3306/progress_tracker
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
@@ -15,3 +15,23 @@ spring:
     name: progress-tracker-api
 server:
   port: ${PORT:8080}
+
+
+#spring:
+#  datasource:
+#    username: ${DB_USERNAME}  # Set this as an environment variable on Render
+#    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/progress_tracker  # Use Render's DB_HOST and DB_PORT
+#    password: ${DB_PASSWORD}  # Set this as an environment variable on Render
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    properties:
+#      hibernate:
+#        dialect: org.hibernate.dialect.MySQLDialect
+#    hibernate:
+#      ddl-auto: update
+#    show-sql: 'true'
+#  application:
+#    name: progress-tracker-api
+#server:
+#  port: ${PORT:8080}
+
