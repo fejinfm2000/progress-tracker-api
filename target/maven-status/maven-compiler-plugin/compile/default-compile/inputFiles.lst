@@ -1,6 +1,8 @@
+D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\repository\VisitorRepository.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\controller\WebController.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\serviceImpl\ServiceImplementation.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Activity.java
+D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Visitor.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Category.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Resource.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\repository\CategoriesRepository.java
