@@ -36,3 +36,11 @@ build/
 /target/classes/com/fm/progresstracker/entity/Visitor$VisitorBuilder.class
 /target/classes/com/fm/progresstracker/entity/Visitor.class
 /target/classes/com/fm/progresstracker/repository/VisitorRepository.class
+/target/surefire-reports/2025-01-04T16-46-32_022.dumpstream
+/target/classes/com/fm/progresstracker/mapper/CommonMapper.class
+/target/classes/com/fm/progresstracker/mapper/CommonMapperImpl.class
+/target/generated-sources/annotations/com/fm/progresstracker/mapper/CommonMapperImpl.java
+/target/classes/com/fm/progresstracker/dto/UserDto$UserDtoBuilder.class
+/target/classes/com/fm/progresstracker/dto/UserDto.class
+/target/classes/com/fm/progresstracker/dto/VisitorDto$VisitorDtoBuilder.class
+/target/classes/com/fm/progresstracker/dto/VisitorDto.class
