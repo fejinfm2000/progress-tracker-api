@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PatchMapping;
 
 import java.util.List;
 
@@ -32,7 +33,7 @@ public class WebController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @GetMapping("/addVisitor")
+    @PatchMapping("/addVisitor")
     public ResponseEntity<VisitorDto> addVisitor(@RequestBody VisitorDto visitorDto) {
         VisitorDto visitorResponse = Service.addVisitor(visitorDto);
         return new ResponseEntity<>(visitorResponse, HttpStatus.OK);
