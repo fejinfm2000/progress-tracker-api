@@ -27,3 +27,12 @@ build/
 
 ### VS Code ###
 .vscode/
+/target/surefire-reports/2025-01-04T00-10-48_127.dumpstream
+/target/surefire-reports/com.fm.progresstracker.ProgressTrackerApiApplicationTests.txt
+/target/maven-archiver/pom.properties
+/target/progress-tracker-api-0.0.1-SNAPSHOT.jar
+/target/progress-tracker-api-0.0.1-SNAPSHOT.jar.original
+/target/surefire-reports/TEST-com.fm.progresstracker.ProgressTrackerApiApplicationTests.xml
+/target/classes/com/fm/progresstracker/entity/Visitor$VisitorBuilder.class
+/target/classes/com/fm/progresstracker/entity/Visitor.class
+/target/classes/com/fm/progresstracker/repository/VisitorRepository.class

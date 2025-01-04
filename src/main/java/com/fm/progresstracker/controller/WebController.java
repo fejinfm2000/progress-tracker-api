@@ -1,9 +1,8 @@
 package com.fm.progresstracker.controller;
 
+import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.User;
-import com.fm.progresstracker.entity.Visitor;
 import com.fm.progresstracker.service.Service;
-import com.fm.progresstracker.serviceImpl.ServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,9 +33,15 @@ public class WebController {
     }
 
     @GetMapping("/addVisitor")
-    public ResponseEntity<Visitor> addVisitor(@RequestBody Visitor visitor) {
-        Visitor visitorResponse = Service.addVisitor(visitor);
+    public ResponseEntity<VisitorDto> addVisitor(@RequestBody VisitorDto visitorDto) {
+        VisitorDto visitorResponse = Service.addVisitor(visitorDto);
         return new ResponseEntity<>(visitorResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllVisitor")
+    public ResponseEntity<List<VisitorDto>> getVisitor() {
+        List<VisitorDto> visitorList = Service.getVisitor();
+        return new ResponseEntity<>(visitorList, HttpStatus.OK);
     }
 
 }

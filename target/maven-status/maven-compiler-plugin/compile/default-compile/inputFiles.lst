@@ -3,10 +3,13 @@ D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\ma
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\serviceImpl\ServiceImplementation.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Activity.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Visitor.java
+D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\dto\UserDto.java
+D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\mapper\CommonMapper.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Category.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Resource.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\repository\CategoriesRepository.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\ProgressLog.java
+D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\dto\VisitorDto.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\User.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\ProgressTrackerApiApplication.java
 D:\Fejin Francis\Developement\SpringBoot Application\progress-tracker-api\src\main\java\com\fm\progresstracker\entity\Notification.java
