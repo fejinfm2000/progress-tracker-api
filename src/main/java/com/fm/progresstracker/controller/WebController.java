@@ -1,5 +1,6 @@
 package com.fm.progresstracker.controller;
 
+import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.User;
 import com.fm.progresstracker.service.Service;
@@ -30,6 +31,12 @@ public class WebController {
     @GetMapping("/allUsers")
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> user = Service.getAllUsers();
+        return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+
+    @PatchMapping("/addUser")
+    public ResponseEntity<UserDto> addUser(@RequestBody UserDto userDto) {
+        UserDto user = Service.addUser(userDto);
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 

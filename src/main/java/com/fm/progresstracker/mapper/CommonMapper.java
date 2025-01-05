@@ -1,6 +1,8 @@
 package com.fm.progresstracker.mapper;
 
+import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
+import com.fm.progresstracker.entity.User;
 import com.fm.progresstracker.entity.Visitor;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -14,5 +16,11 @@ public interface CommonMapper {
     Visitor toViositorEntity(VisitorDto visitorDto);
 
     VisitorDto toViositorDto(Visitor visitor);
+
     List<VisitorDto> toViositorList(List<Visitor> visitorList);
+
+    User toUser(UserDto userDto);
+
+    UserDto toUserDto(User user);
+
 }
