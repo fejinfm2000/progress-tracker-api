@@ -34,6 +34,8 @@ public class User {
     @Column(nullable = false, length = 255)
     private String passwordHash;
 
+    private Boolean termsAndConditionFlag;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 
