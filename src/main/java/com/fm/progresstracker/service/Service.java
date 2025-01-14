@@ -10,8 +10,13 @@ import java.util.List;
 public interface Service {
 
     List<User> getAllUsers();
+
     UserDto addUser(UserDto userDto);
+
     VisitorDto addVisitor(VisitorDto visitor);
+
     List<VisitorDto> getVisitor();
+
+    UserDto isUserPersent(UserDto user);
 
 }

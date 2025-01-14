@@ -58,4 +58,11 @@ public class WebController {
         return new ResponseEntity<>(visitorList, HttpStatus.OK);
     }
 
+    @GetMapping("/isUserPersent")
+    public ResponseEntity<UserDto> isUserPersent(@RequestBody UserDto user) {
+        log.info("isUserPersent");
+        UserDto userDto = Service.isUserPersent(user);
+        return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
 }
