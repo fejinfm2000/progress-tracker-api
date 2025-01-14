@@ -46,11 +46,11 @@ public class ServiceImplementation implements Service {
         return CommonMapper.INSTENCE.toViositorList(visitorRepository.findAll());
     }
 
-    public UserDto isUserPersent(UserDto userDto) {
-        Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+    public UserDto isUserPersent(String email, String passwordHash) {
+        Optional<User> optionalUser = userRepository.findByEmail(email);
         if (optionalUser.isEmpty()) {
             throw new NotFound("User Not Found");
-        } else if (!userDto.getPasswordHash().equals(optionalUser.get().getPasswordHash())) {
+        } else if (!passwordHash.equals(optionalUser.get().getPasswordHash())) {
             throw new NotFound("InCorrect Password");
         }
         return CommonMapper.INSTENCE.toUserDto(optionalUser.get());

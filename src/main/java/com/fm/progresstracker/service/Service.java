@@ -17,6 +17,6 @@ public interface Service {
 
     List<VisitorDto> getVisitor();
 
-    UserDto isUserPersent(UserDto user);
+    UserDto isUserPersent(String email,String passwordHash);
 
 }
