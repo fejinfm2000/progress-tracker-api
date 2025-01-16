@@ -1,5 +1,7 @@
 package com.fm.progresstracker.controller;
 
+import com.fm.progresstracker.dto.ActivityDto;
+import com.fm.progresstracker.dto.CategoryDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.User;
@@ -59,6 +61,27 @@ public class WebController {
         log.info("isUserPersent");
         UserDto userDto = Service.isUserPersent(email, passwordHash);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/addCatagory")
+    public ResponseEntity<CategoryDto> addCatagory(@RequestBody CategoryDto Category) {
+        log.info("addCatagory");
+        CategoryDto catagoryResponse = Service.addCatagory(Category);
+        return new ResponseEntity<>(catagoryResponse, HttpStatus.OK);
+    }
+
+    @PatchMapping("/addMultipleCatagory")
+    public ResponseEntity<List<CategoryDto>> addMultipleCatagory(@RequestBody List<CategoryDto> Category) {
+        log.info("addMultipleCatagory");
+        List<CategoryDto> catagoryResponse = Service.addMultipleCatagory(Category);
+        return new ResponseEntity<>(catagoryResponse, HttpStatus.OK);
+    }
+
+    @PatchMapping("/addActivity")
+    public ResponseEntity<ActivityDto> addActivity(@RequestBody ActivityDto Category) {
+        log.info("addActivity");
+        ActivityDto activityDto = Service.addActivity(Category);
+        return new ResponseEntity<>(activityDto, HttpStatus.OK);
     }
 
 }

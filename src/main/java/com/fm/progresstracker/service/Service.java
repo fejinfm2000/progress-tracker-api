@@ -1,5 +1,7 @@
 package com.fm.progresstracker.service;
 
+import com.fm.progresstracker.dto.ActivityDto;
+import com.fm.progresstracker.dto.CategoryDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.User;
@@ -17,6 +19,13 @@ public interface Service {
 
     List<VisitorDto> getVisitor();
 
-    UserDto isUserPersent(String email,String passwordHash);
+    UserDto isUserPersent(String email, String passwordHash);
+
+    CategoryDto addCatagory(CategoryDto catagoryDto);
+
+    ActivityDto addActivity(ActivityDto catagoryDto);
+
+    List<CategoryDto> addMultipleCatagory(List<CategoryDto> catagoryDto);
+
 
 }

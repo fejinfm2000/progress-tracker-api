@@ -1,9 +1,9 @@
 package com.fm.progresstracker.repository;
 
-import com.fm.progresstracker.entity.Category;
+import com.fm.progresstracker.entity.Activity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoriesRepository extends JpaRepository<Category, Integer> {
+public interface ActivityRepository extends JpaRepository<Activity, Integer> {
 }

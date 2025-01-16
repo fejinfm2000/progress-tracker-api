@@ -2,11 +2,16 @@ package com.fm.progresstracker.serviceImpl;
 
 
 import com.fm.progresstracker.ExceptionHandler.NotFound;
+import com.fm.progresstracker.dto.ActivityDto;
+import com.fm.progresstracker.dto.CategoryDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
+import com.fm.progresstracker.entity.Activity;
+import com.fm.progresstracker.entity.Category;
 import com.fm.progresstracker.entity.User;
 import com.fm.progresstracker.entity.Visitor;
 import com.fm.progresstracker.mapper.CommonMapper;
+import com.fm.progresstracker.repository.ActivityRepository;
 import com.fm.progresstracker.repository.CategoriesRepository;
 import com.fm.progresstracker.repository.UserRepository;
 import com.fm.progresstracker.repository.VisitorRepository;
@@ -28,8 +33,11 @@ public class ServiceImplementation implements Service {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    ActivityRepository activityRepository;
+
     public List<User> getAllUsers() {
-        return categoriesRepository.findAll();
+        return userRepository.findAll();
     }
 
     public VisitorDto addVisitor(VisitorDto visitorDto) {
@@ -56,5 +64,19 @@ public class ServiceImplementation implements Service {
         return CommonMapper.INSTENCE.toUserDto(optionalUser.get());
     }
 
+    public CategoryDto addCatagory(CategoryDto categoryDto) {
+        Category category = CommonMapper.INSTENCE.toCategory(categoryDto);
+        return CommonMapper.INSTENCE.toCategoryDto(categoriesRepository.save(category));
+    }
+
+    public ActivityDto addActivity(ActivityDto activityDto) {
+        Activity activity = CommonMapper.INSTENCE.toActivity(activityDto);
+        return CommonMapper.INSTENCE.toActivityDto(activityRepository.save(activity));
+    }
+
+    public List<CategoryDto> addMultipleCatagory(List<CategoryDto> categoryDto) {
+        List<Category> category = CommonMapper.INSTENCE.toCategory(categoryDto);
+        return CommonMapper.INSTENCE.toCategoryDto(categoriesRepository.saveAll(category));
+    }
 
 }
