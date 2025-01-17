@@ -3,16 +3,21 @@ package com.fm.progresstracker.serviceImpl;
 
 import com.fm.progresstracker.ExceptionHandler.NotFound;
 import com.fm.progresstracker.dto.ActivityDto;
+import com.fm.progresstracker.dto.ActivityRequestDto;
 import com.fm.progresstracker.dto.CategoryDto;
+import com.fm.progresstracker.dto.SubActivityDto;
+import com.fm.progresstracker.dto.SubActivityRequestDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.Activity;
 import com.fm.progresstracker.entity.Category;
+import com.fm.progresstracker.entity.SubActivity;
 import com.fm.progresstracker.entity.User;
 import com.fm.progresstracker.entity.Visitor;
 import com.fm.progresstracker.mapper.CommonMapper;
 import com.fm.progresstracker.repository.ActivityRepository;
 import com.fm.progresstracker.repository.CategoriesRepository;
+import com.fm.progresstracker.repository.SubActivityRepository;
 import com.fm.progresstracker.repository.UserRepository;
 import com.fm.progresstracker.repository.VisitorRepository;
 import com.fm.progresstracker.service.Service;
@@ -35,6 +40,9 @@ public class ServiceImplementation implements Service {
 
     @Autowired
     ActivityRepository activityRepository;
+
+    @Autowired
+    SubActivityRepository subActivityRepository;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -69,9 +77,40 @@ public class ServiceImplementation implements Service {
         return CommonMapper.INSTENCE.toCategoryDto(categoriesRepository.save(category));
     }
 
-    public ActivityDto addActivity(ActivityDto activityDto) {
-        Activity activity = CommonMapper.INSTENCE.toActivity(activityDto);
-        return CommonMapper.INSTENCE.toActivityDto(activityRepository.save(activity));
+    public ActivityDto addActivity(ActivityRequestDto activityDto) {
+        System.out.println(activityDto.toString());
+        Category category = categoriesRepository.findByCategoryName(activityDto.getCategoryName());
+        System.out.println(category);
+        Optional<User> user = userRepository.findByEmail(activityDto.getEmail());
+        System.out.println(user.get().toString());
+        Activity activity = Activity.builder()
+                .activityId(activityDto.getActivityId())
+                .activityName(activityDto.getActivityName())
+                .progress(activityDto.getProgress())
+                .endDate(activityDto.getEndDate())
+                .startDate(activityDto.getStartDate())
+                .status(activityDto.getStatus())
+                .description(activityDto.getDescription())
+                .category(category)
+                .user(user.get())
+                .build();
+        activityRepository.save(activity);
+        return CommonMapper.INSTENCE.toActivityDto(activity);
+    }
+
+    public SubActivityDto addSubActivity(SubActivityRequestDto activityDto) {
+        Activity activity = activityRepository.findByActivityName(activityDto.getActivityName());
+        SubActivity subActivity = SubActivity.builder()
+                .description(activityDto.getDescription())
+                .subActivityName(activityDto.getSubActivityName())
+                .progress(activityDto.getProgress())
+                .endDate(activityDto.getEndDate())
+                .startDate(activityDto.getStartDate())
+                .status(activityDto.getStatus())
+                .activity(activity)
+                .build();
+        subActivityRepository.save(subActivity);
+        return CommonMapper.INSTENCE.toSubActivityDto(subActivity);
     }
 
     public List<CategoryDto> addMultipleCatagory(List<CategoryDto> categoryDto) {

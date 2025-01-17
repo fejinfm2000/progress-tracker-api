@@ -2,10 +2,12 @@ package com.fm.progresstracker.mapper;
 
 import com.fm.progresstracker.dto.ActivityDto;
 import com.fm.progresstracker.dto.CategoryDto;
+import com.fm.progresstracker.dto.SubActivityDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.Activity;
 import com.fm.progresstracker.entity.Category;
+import com.fm.progresstracker.entity.SubActivity;
 import com.fm.progresstracker.entity.User;
 import com.fm.progresstracker.entity.Visitor;
 import org.mapstruct.Mapper;
@@ -30,6 +32,8 @@ public interface CommonMapper {
     Activity toActivity(ActivityDto activityDto);
 
     ActivityDto toActivityDto(Activity activity);
+
+    SubActivityDto toSubActivityDto(SubActivity activity);
 
     Category toCategory(CategoryDto categoryDto);
 

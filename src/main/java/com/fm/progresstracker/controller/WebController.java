@@ -1,7 +1,10 @@
 package com.fm.progresstracker.controller;
 
 import com.fm.progresstracker.dto.ActivityDto;
+import com.fm.progresstracker.dto.ActivityRequestDto;
 import com.fm.progresstracker.dto.CategoryDto;
+import com.fm.progresstracker.dto.SubActivityDto;
+import com.fm.progresstracker.dto.SubActivityRequestDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.User;
@@ -10,7 +13,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -78,9 +86,16 @@ public class WebController {
     }
 
     @PatchMapping("/addActivity")
-    public ResponseEntity<ActivityDto> addActivity(@RequestBody ActivityDto Category) {
+    public ResponseEntity<ActivityDto> addActivity(@RequestBody ActivityRequestDto activity) {
         log.info("addActivity");
-        ActivityDto activityDto = Service.addActivity(Category);
+        ActivityDto activityDto = Service.addActivity(activity);
+        return new ResponseEntity<>(activityDto, HttpStatus.OK);
+    }
+
+    @PatchMapping("/addSubActivity")
+    public ResponseEntity<SubActivityDto> addSubActivity(@RequestBody SubActivityRequestDto subActivity) {
+        log.info("addSubActivity");
+        SubActivityDto activityDto = Service.addSubActivity(subActivity);
         return new ResponseEntity<>(activityDto, HttpStatus.OK);
     }
 

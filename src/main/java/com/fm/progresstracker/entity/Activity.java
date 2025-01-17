@@ -5,7 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -17,7 +17,6 @@ import java.time.LocalDateTime;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@EntityListeners(AuditingEntityListener.class)
 public class Activity {
 
     @Id
@@ -47,8 +46,7 @@ public class Activity {
     @Column(precision = 5, scale = 2)
     private BigDecimal progress;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
+    @CreationTimestamp
     private LocalDateTime createdAt;
 
 }

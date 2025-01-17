@@ -1,7 +1,10 @@
 package com.fm.progresstracker.service;
 
 import com.fm.progresstracker.dto.ActivityDto;
+import com.fm.progresstracker.dto.ActivityRequestDto;
 import com.fm.progresstracker.dto.CategoryDto;
+import com.fm.progresstracker.dto.SubActivityDto;
+import com.fm.progresstracker.dto.SubActivityRequestDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.User;
@@ -23,7 +26,9 @@ public interface Service {
 
     CategoryDto addCatagory(CategoryDto catagoryDto);
 
-    ActivityDto addActivity(ActivityDto catagoryDto);
+    ActivityDto addActivity(ActivityRequestDto activity);
+
+    SubActivityDto addSubActivity(SubActivityRequestDto activity);
 
     List<CategoryDto> addMultipleCatagory(List<CategoryDto> catagoryDto);
 
