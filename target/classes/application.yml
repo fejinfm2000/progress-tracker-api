@@ -1,9 +1,14 @@
 spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher # Ensure compatibility with SpringDoc OpenAPI
+
   datasource:
     url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:progress_tracker}
     username: ${DATABASE_USER:root}
     password: ${DATABASE_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
   jpa:
     properties:
       hibernate:
@@ -11,9 +16,19 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: 'true'
+
   application:
     name: progress-tracker-api
+
+  # SpringDoc Configuration
+  springdoc:
+    swagger-ui:
+      use-root-path: true # Added to fix the property error
+
 server:
   port: ${PORT:8080}
 
-
+logging:
+  level:
+    org.springdoc: DEBUG
+    org.springframework: DEBUG
