@@ -5,6 +5,7 @@ import com.fm.progresstracker.dto.ActivityRequestDto;
 import com.fm.progresstracker.dto.CategoryDto;
 import com.fm.progresstracker.dto.SubActivityDto;
 import com.fm.progresstracker.dto.SubActivityRequestDto;
+import com.fm.progresstracker.dto.UserActivityResponseDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.User;
@@ -99,4 +100,10 @@ public class WebController {
         return new ResponseEntity<>(activityDto, HttpStatus.OK);
     }
 
+    @GetMapping("/getAllActivities")
+    public ResponseEntity<UserActivityResponseDto> getAllActivities(@RequestParam String userEmail) {
+        log.info("getAllActivities");
+        UserActivityResponseDto userActivityResponse = Service.getAllActivities(userEmail);
+        return new ResponseEntity<>(userActivityResponse, HttpStatus.OK);
+    }
 }

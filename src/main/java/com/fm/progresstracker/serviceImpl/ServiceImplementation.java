@@ -7,6 +7,7 @@ import com.fm.progresstracker.dto.ActivityRequestDto;
 import com.fm.progresstracker.dto.CategoryDto;
 import com.fm.progresstracker.dto.SubActivityDto;
 import com.fm.progresstracker.dto.SubActivityRequestDto;
+import com.fm.progresstracker.dto.UserActivityResponseDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.Activity;
@@ -111,6 +112,32 @@ public class ServiceImplementation implements Service {
                 .build();
         subActivityRepository.save(subActivity);
         return CommonMapper.INSTENCE.toSubActivityDto(subActivity);
+    }
+
+    public UserActivityResponseDto getAllActivities(String userEmail) {
+        Optional<User> optionalUser = userRepository.findByEmail(userEmail);
+        User user = optionalUser.get();
+
+        List<Activity> activity = activityRepository.findByUser_UserId(user.getUserId());
+        System.out.println("activity:::" + activity);
+
+        List<SubActivity> subActivity = subActivityRepository.findByActivity_ActivityNameIn(activity.stream().map(Activity::getActivityName).toList());
+        System.out.println("subActivity:::" + subActivity);
+        List<Category> categories = categoriesRepository.findByCategoryNameIn(activity.stream().map(data -> data.getCategory().getCategoryName()).toList());
+        System.out.println("categories:::" + categories);
+
+        return UserActivityResponseDto.builder()
+                .userId(user.getUserId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .createdAt(user.getCreatedAt())
+                .lastLogin(user.getLastLogin())
+                .termsAndConditionFlag(user.getTermsAndConditionFlag())
+                .subActivity(CommonMapper.INSTENCE.toSubActivityDtoList(subActivity))
+                .activity(CommonMapper.INSTENCE.toActivityDtoList(activity))
+                .category(CommonMapper.INSTENCE.toCategoryDto(categories))
+                .build();
     }
 
     public List<CategoryDto> addMultipleCatagory(List<CategoryDto> categoryDto) {

@@ -33,7 +33,11 @@ public interface CommonMapper {
 
     ActivityDto toActivityDto(Activity activity);
 
+    List<ActivityDto> toActivityDtoList(List<Activity> activity);
+
     SubActivityDto toSubActivityDto(SubActivity activity);
+
+    List<SubActivityDto> toSubActivityDtoList(List<SubActivity> activity);
 
     Category toCategory(CategoryDto categoryDto);
 

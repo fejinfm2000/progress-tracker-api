@@ -5,6 +5,7 @@ import com.fm.progresstracker.dto.ActivityRequestDto;
 import com.fm.progresstracker.dto.CategoryDto;
 import com.fm.progresstracker.dto.SubActivityDto;
 import com.fm.progresstracker.dto.SubActivityRequestDto;
+import com.fm.progresstracker.dto.UserActivityResponseDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
 import com.fm.progresstracker.entity.User;
@@ -29,6 +30,8 @@ public interface Service {
     ActivityDto addActivity(ActivityRequestDto activity);
 
     SubActivityDto addSubActivity(SubActivityRequestDto activity);
+
+    UserActivityResponseDto getAllActivities(String userEmail);
 
     List<CategoryDto> addMultipleCatagory(List<CategoryDto> catagoryDto);
 
