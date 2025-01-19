@@ -10,4 +10,6 @@ import java.util.List;
 public interface SubActivityRepository extends JpaRepository<SubActivity, Integer> {
 
     List<SubActivity> findByActivity_ActivityNameIn(List<String> activityId);
+
+    SubActivity findBySubActivityName(String subActivityName);
 }

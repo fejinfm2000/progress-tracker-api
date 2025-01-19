@@ -106,4 +106,12 @@ public class WebController {
         UserActivityResponseDto userActivityResponse = Service.getAllActivities(userEmail);
         return new ResponseEntity<>(userActivityResponse, HttpStatus.OK);
     }
+
+    @PatchMapping("/addActivityDetails")
+    public ResponseEntity<UserActivityResponseDto> addActivityDetails(@RequestBody ActivityRequestDto activityRequestDto) {
+        log.info("addActivityDetails");
+        UserActivityResponseDto activity = Service.addActivityDetails(activityRequestDto);
+        return new ResponseEntity<>(activity, HttpStatus.OK);
+    }
+
 }

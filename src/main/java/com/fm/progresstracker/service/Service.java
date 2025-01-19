@@ -33,6 +33,8 @@ public interface Service {
 
     UserActivityResponseDto getAllActivities(String userEmail);
 
+    UserActivityResponseDto addActivityDetails(ActivityRequestDto requestDto);
+
     List<CategoryDto> addMultipleCatagory(List<CategoryDto> catagoryDto);
 
 

@@ -24,6 +24,8 @@ import com.fm.progresstracker.repository.VisitorRepository;
 import com.fm.progresstracker.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -64,13 +66,13 @@ public class ServiceImplementation implements Service {
     }
 
     public UserDto isUserPersent(String email, String passwordHash) {
-        Optional<User> optionalUser = userRepository.findByEmail(email);
-        if (optionalUser.isEmpty()) {
+        User user = findByUserEmail(email);
+        if (user.getEmail() == null) {
             throw new NotFound("User Not Found");
-        } else if (!passwordHash.equals(optionalUser.get().getPasswordHash())) {
+        } else if (!passwordHash.equals(user.getPasswordHash())) {
             throw new NotFound("InCorrect Password");
         }
-        return CommonMapper.INSTENCE.toUserDto(optionalUser.get());
+        return CommonMapper.INSTENCE.toUserDto(user);
     }
 
     public CategoryDto addCatagory(CategoryDto categoryDto) {
@@ -79,52 +81,53 @@ public class ServiceImplementation implements Service {
     }
 
     public ActivityDto addActivity(ActivityRequestDto activityDto) {
-        System.out.println(activityDto.toString());
-        Category category = categoriesRepository.findByCategoryName(activityDto.getCategoryName());
-        System.out.println(category);
-        Optional<User> user = userRepository.findByEmail(activityDto.getEmail());
-        System.out.println(user.get().toString());
-        Activity activity = Activity.builder()
-                .activityId(activityDto.getActivityId())
-                .activityName(activityDto.getActivityName())
-                .progress(activityDto.getProgress())
-                .endDate(activityDto.getEndDate())
-                .startDate(activityDto.getStartDate())
-                .status(activityDto.getStatus())
-                .description(activityDto.getDescription())
-                .category(category)
-                .user(user.get())
-                .build();
-        activityRepository.save(activity);
+        Activity activity = activityRepository.findByActivityName(activityDto.getActivityName());
+        if (activity.getActivityName() == null) {
+            Category category = categoriesRepository.findByCategoryName(activityDto.getCategoryName());
+            User user = findByUserEmail(activityDto.getEmail());
+            activity = Activity.builder()
+                    .activityId(activityDto.getActivityId())
+                    .activityName(activityDto.getActivityName())
+                    .progress(activityDto.getProgress())
+                    .endDate(activityDto.getEndDate())
+                    .startDate(LocalDate.now())
+                    .status(activityDto.getStatus())
+                    .description(activityDto.getDescription())
+                    .category(category)
+                    .user(user)
+                    .build();
+            activityRepository.save(activity);
+        }
         return CommonMapper.INSTENCE.toActivityDto(activity);
     }
 
     public SubActivityDto addSubActivity(SubActivityRequestDto activityDto) {
-        Activity activity = activityRepository.findByActivityName(activityDto.getActivityName());
-        SubActivity subActivity = SubActivity.builder()
-                .description(activityDto.getDescription())
-                .subActivityName(activityDto.getSubActivityName())
-                .progress(activityDto.getProgress())
-                .endDate(activityDto.getEndDate())
-                .startDate(activityDto.getStartDate())
-                .status(activityDto.getStatus())
-                .activity(activity)
-                .build();
-        subActivityRepository.save(subActivity);
+        SubActivity subActivity = subActivityRepository.findBySubActivityName(activityDto.getSubActivityName());
+
+        if (subActivity == null) {
+            Activity activity = activityRepository.findByActivityName(activityDto.getActivityName());
+            subActivity = SubActivity.builder()
+                    .description(activityDto.getDescription())
+                    .subActivityName(activityDto.getSubActivityName())
+                    .progress(activityDto.getProgress())
+                    .endDate(activityDto.getEndDate())
+                    .startDate(LocalDate.now())
+                    .status(activityDto.getStatus())
+                    .activity(activity)
+                    .build();
+            subActivityRepository.save(subActivity);
+        }
+
         return CommonMapper.INSTENCE.toSubActivityDto(subActivity);
     }
 
     public UserActivityResponseDto getAllActivities(String userEmail) {
-        Optional<User> optionalUser = userRepository.findByEmail(userEmail);
-        User user = optionalUser.get();
+        User user = findByUserEmail(userEmail);
 
         List<Activity> activity = activityRepository.findByUser_UserId(user.getUserId());
-        System.out.println("activity:::" + activity);
 
         List<SubActivity> subActivity = subActivityRepository.findByActivity_ActivityNameIn(activity.stream().map(Activity::getActivityName).toList());
-        System.out.println("subActivity:::" + subActivity);
         List<Category> categories = categoriesRepository.findByCategoryNameIn(activity.stream().map(data -> data.getCategory().getCategoryName()).toList());
-        System.out.println("categories:::" + categories);
 
         return UserActivityResponseDto.builder()
                 .userId(user.getUserId())
@@ -138,6 +141,30 @@ public class ServiceImplementation implements Service {
                 .activity(CommonMapper.INSTENCE.toActivityDtoList(activity))
                 .category(CommonMapper.INSTENCE.toCategoryDto(categories))
                 .build();
+    }
+
+
+    public UserActivityResponseDto addActivityDetails(ActivityRequestDto activityRequestDto) {
+        ActivityDto activityDto = addActivity(activityRequestDto);
+        activityRequestDto.getSubActivities().forEach(data -> {
+            SubActivityRequestDto subActivity = SubActivityRequestDto.builder()
+                    .activityName(activityDto.getActivityName())
+                    .description(activityDto.getDescription())
+                    .subActivityName(data)
+                    .status("Started")
+                    .progress(BigDecimal.ZERO)
+                    .startDate(LocalDate.now())
+                    .endDate(activityRequestDto.getEndDate())
+                    .build();
+            addSubActivity(subActivity);
+        });
+
+        return getAllActivities(activityRequestDto.getEmail());
+    }
+
+    User findByUserEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        return user.orElseGet(() -> User.builder().build());
     }
 
     public List<CategoryDto> addMultipleCatagory(List<CategoryDto> categoryDto) {
