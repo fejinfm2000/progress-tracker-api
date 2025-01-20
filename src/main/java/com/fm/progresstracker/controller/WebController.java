@@ -114,4 +114,11 @@ public class WebController {
         return new ResponseEntity<>(activity, HttpStatus.OK);
     }
 
+    @GetMapping("/getAllCatagories")
+    public ResponseEntity<List<CategoryDto>> getAllCatagory() {
+        log.info("getAllCatagory");
+        List<CategoryDto> categoryDtos = Service.getAllCatagory();
+        return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
+    }
+
 }

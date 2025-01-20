@@ -172,4 +172,8 @@ public class ServiceImplementation implements Service {
         return CommonMapper.INSTENCE.toCategoryDto(categoriesRepository.saveAll(category));
     }
 
+    public List<CategoryDto> getAllCatagory() {
+        return CommonMapper.INSTENCE.toCategoryDto(categoriesRepository.findAll());
+    }
+
 }

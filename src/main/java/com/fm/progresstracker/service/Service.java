@@ -37,5 +37,7 @@ public interface Service {
 
     List<CategoryDto> addMultipleCatagory(List<CategoryDto> catagoryDto);
 
+    List<CategoryDto> getAllCatagory();
+
 
 }
