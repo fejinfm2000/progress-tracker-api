@@ -59,6 +59,10 @@ public class ServiceImplementation implements Service {
     public UserDto addUser(UserDto userDto) {
         User user = CommonMapper.INSTENCE.toUser(userDto);
         if (userDto.getUpdateFlag() != null) {
+            Optional<User> optionalUser = userRepository.findByEmail(userDto.getEmail());
+            if (optionalUser.isEmpty()) {
+                throw new NotFound("User Not Found");
+            }
             user = userRepository.findByEmail(userDto.getEmail()).get();
             user.setPasswordHash(userDto.getPasswordHash());
         }
