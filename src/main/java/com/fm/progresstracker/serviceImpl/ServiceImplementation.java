@@ -58,6 +58,10 @@ public class ServiceImplementation implements Service {
 
     public UserDto addUser(UserDto userDto) {
         User user = CommonMapper.INSTENCE.toUser(userDto);
+        if (userDto.getUpdateFlag() != null) {
+            user = userRepository.findByEmail(userDto.getEmail()).get();
+            user.setPasswordHash(userDto.getPasswordHash());
+        }
         return CommonMapper.INSTENCE.toUserDto(userRepository.save(user));
     }
 
@@ -82,7 +86,7 @@ public class ServiceImplementation implements Service {
 
     public ActivityDto addActivity(ActivityRequestDto activityDto) {
         Activity activity = activityRepository.findByActivityName(activityDto.getActivityName());
-        if (activity== null) {
+        if (activity == null) {
             Category category = categoriesRepository.findByCategoryName(activityDto.getCategoryName());
             User user = findByUserEmail(activityDto.getEmail());
             activity = Activity.builder()

@@ -20,4 +20,5 @@ public class UserDto {
     private String termsAndConditionFlag;
     private LocalDateTime createdAt;
     private LocalDateTime lastLogin;
+    private Boolean updateFlag;
 }
