@@ -82,7 +82,7 @@ public class ServiceImplementation implements Service {
 
     public ActivityDto addActivity(ActivityRequestDto activityDto) {
         Activity activity = activityRepository.findByActivityName(activityDto.getActivityName());
-        if (activity.getActivityName() == null) {
+        if (activity== null) {
             Category category = categoriesRepository.findByCategoryName(activityDto.getCategoryName());
             User user = findByUserEmail(activityDto.getEmail());
             activity = Activity.builder()
