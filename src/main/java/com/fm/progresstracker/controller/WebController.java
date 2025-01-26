@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -63,6 +64,13 @@ public class WebController {
         log.info("getVisitor");
         List<VisitorDto> visitorList = Service.getVisitor();
         return new ResponseEntity<>(visitorList, HttpStatus.OK);
+    }
+
+    @GetMapping("/getSubActivity/{activityId}")
+    public ResponseEntity<List<SubActivityDto>> getSubActivity(@PathVariable Integer activityId) {
+        log.info("getSubActivity");
+        List<SubActivityDto> subActivityDtos = Service.getSubActivity(activityId);
+        return new ResponseEntity<>(subActivityDtos, HttpStatus.OK);
     }
 
     @GetMapping("/isUserPersent")

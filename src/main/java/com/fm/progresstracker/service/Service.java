@@ -23,6 +23,8 @@ public interface Service {
 
     List<VisitorDto> getVisitor();
 
+    List<SubActivityDto> getSubActivity(Integer activityId);
+
     UserDto isUserPersent(String email, String passwordHash);
 
     CategoryDto addCatagory(CategoryDto catagoryDto);

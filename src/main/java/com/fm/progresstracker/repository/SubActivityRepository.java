@@ -11,5 +11,7 @@ public interface SubActivityRepository extends JpaRepository<SubActivity, Intege
 
     List<SubActivity> findByActivity_ActivityNameIn(List<String> activityId);
 
+    List<SubActivity> findByActivity_ActivityId(Integer activityId);
+
     SubActivity findBySubActivityName(String subActivityName);
 }

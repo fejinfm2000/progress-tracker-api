@@ -73,6 +73,11 @@ public class ServiceImplementation implements Service {
         return CommonMapper.INSTENCE.toViositorList(visitorRepository.findAll());
     }
 
+    public List<SubActivityDto> getSubActivity(Integer activityId) {
+        System.out.println("hlo");
+        return CommonMapper.INSTENCE.toSubActivityDtoList(subActivityRepository.findByActivity_ActivityId(activityId));
+    }
+
     public UserDto isUserPersent(String email, String passwordHash) {
         User user = findByUserEmail(email);
         if (user.getEmail() == null) {
