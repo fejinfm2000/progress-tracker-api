@@ -2,6 +2,8 @@ package com.fm.progresstracker.mapper;
 
 import com.fm.progresstracker.dto.ActivityDto;
 import com.fm.progresstracker.dto.CategoryDto;
+import com.fm.progresstracker.dto.NewsDto;
+import com.fm.progresstracker.dto.NewsDtoResponse;
 import com.fm.progresstracker.dto.SubActivityDto;
 import com.fm.progresstracker.dto.UserDto;
 import com.fm.progresstracker.dto.VisitorDto;
@@ -46,5 +48,7 @@ public interface CommonMapper {
     CategoryDto toCategoryDto(Category category);
 
     List<CategoryDto> toCategoryDto(List<Category> category);
+
+    NewsDto toNewsDto(NewsDtoResponse newsDtoResponse);
 
 }

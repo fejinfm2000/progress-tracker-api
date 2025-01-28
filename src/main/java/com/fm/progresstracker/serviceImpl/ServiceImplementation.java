@@ -5,6 +5,8 @@ import com.fm.progresstracker.ExceptionHandler.NotFound;
 import com.fm.progresstracker.dto.ActivityDto;
 import com.fm.progresstracker.dto.ActivityRequestDto;
 import com.fm.progresstracker.dto.CategoryDto;
+import com.fm.progresstracker.dto.NewsDto;
+import com.fm.progresstracker.dto.NewsDtoResponse;
 import com.fm.progresstracker.dto.SubActivityDto;
 import com.fm.progresstracker.dto.SubActivityRequestDto;
 import com.fm.progresstracker.dto.UserActivityResponseDto;
@@ -23,6 +25,12 @@ import com.fm.progresstracker.repository.UserRepository;
 import com.fm.progresstracker.repository.VisitorRepository;
 import com.fm.progresstracker.service.Service;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -46,6 +54,9 @@ public class ServiceImplementation implements Service {
 
     @Autowired
     SubActivityRepository subActivityRepository;
+
+    @Autowired
+    RestTemplate restTemplate;
 
     public List<User> getAllUsers() {
         return userRepository.findAll();
@@ -189,4 +200,18 @@ public class ServiceImplementation implements Service {
         return CommonMapper.INSTENCE.toCategoryDto(categoriesRepository.findAll());
     }
 
+    public NewsDto getTodayNews() {
+        String url = "http://api.mediastack.com/v1/news?access_key=6f2984d27b6577e16fe4bbd5a2acc3c0";
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Accept", "application/json");
+        HttpEntity<?> entity = new HttpEntity<>(headers);
+        ResponseEntity<NewsDtoResponse> response = restTemplate.exchange(
+                url,
+                HttpMethod.GET,
+                entity,
+                new ParameterizedTypeReference<>() {
+                }
+        );
+        return CommonMapper.INSTENCE.toNewsDto(response.getBody());
+    }
 }

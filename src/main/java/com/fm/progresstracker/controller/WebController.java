@@ -3,6 +3,7 @@ package com.fm.progresstracker.controller;
 import com.fm.progresstracker.dto.ActivityDto;
 import com.fm.progresstracker.dto.ActivityRequestDto;
 import com.fm.progresstracker.dto.CategoryDto;
+import com.fm.progresstracker.dto.NewsDto;
 import com.fm.progresstracker.dto.SubActivityDto;
 import com.fm.progresstracker.dto.SubActivityRequestDto;
 import com.fm.progresstracker.dto.UserActivityResponseDto;
@@ -129,4 +130,10 @@ public class WebController {
         return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
     }
 
+    @GetMapping("/getTodayNews")
+    public ResponseEntity<NewsDto> getTodayNews() {
+        log.info("getTodayNews");
+        NewsDto newsDtos = Service.getTodayNews();
+        return new ResponseEntity<>(newsDtos, HttpStatus.OK);
+    }
 }
