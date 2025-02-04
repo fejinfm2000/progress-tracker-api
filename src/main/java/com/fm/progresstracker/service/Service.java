@@ -26,6 +26,8 @@ public interface Service {
 
     List<SubActivityDto> getSubActivity(Integer activityId, String email);
 
+    SubActivityDto patchSubActivity(Integer activityId , SubActivityDto subActivityDto);
+
     UserDto isUserPersent(String email, String passwordHash);
 
     CategoryDto addCatagory(CategoryDto catagoryDto);

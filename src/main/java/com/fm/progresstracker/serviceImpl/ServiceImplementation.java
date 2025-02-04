@@ -88,6 +88,17 @@ public class ServiceImplementation implements Service {
         return CommonMapper.INSTENCE.toSubActivityDtoList(subActivityRepository.findByActivity_ActivityIdAndActivity_User_Email(activityId, email));
     }
 
+    public SubActivityDto patchSubActivity(Integer activityId, SubActivityDto subActivityDto) {
+        SubActivity subActivity = subActivityRepository.findBySubActivityIdAndActivity_ActivityIdAndActivity_User_Email(subActivityDto.getSubActivityId(), activityId, subActivityDto.getEmail());
+        subActivity.setStatus(subActivityDto.getStatus());
+        subActivity.setProgress(subActivityDto.getProgress());
+        if ("Completed".equals(subActivity.getStatus())) {
+            subActivity.setEndDate(LocalDate.now());
+        }
+        SubActivity subActivityResponse = subActivityRepository.save(subActivity);
+        return CommonMapper.INSTENCE.toSubActivityDto(subActivityResponse);
+    }
+
     public UserDto isUserPersent(String email, String passwordHash) {
         User user = findByUserEmail(email);
         if (user.getEmail() == null) {

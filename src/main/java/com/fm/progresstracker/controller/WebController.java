@@ -141,4 +141,11 @@ public class WebController {
         return new ResponseEntity<>(subActivityDtos, HttpStatus.OK);
     }
 
+    @PatchMapping("/patchSubActivity/{activityId}")
+    public ResponseEntity<SubActivityDto> patchSubActivity(@PathVariable Integer activityId, @RequestBody SubActivityDto subActivityDto) {
+        log.info("patchSubActivity");
+        SubActivityDto subActivityDtos = Service.patchSubActivity(activityId, subActivityDto);
+        return new ResponseEntity<>(subActivityDtos, HttpStatus.OK);
+    }
+
 }

@@ -13,5 +13,7 @@ public interface SubActivityRepository extends JpaRepository<SubActivity, Intege
 
     List<SubActivity> findByActivity_ActivityIdAndActivity_User_Email(Integer activityId, String email);
 
+    SubActivity findBySubActivityIdAndActivity_ActivityIdAndActivity_User_Email(Integer SubActId, Integer activityId, String email);
+
     SubActivity findBySubActivityNameAndActivity_ActivityNameAndActivity_User_Email(String subActivityName, String activityName, String email);
 }

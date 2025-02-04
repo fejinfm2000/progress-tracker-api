@@ -20,6 +20,7 @@ public class SubActivityDto {
     private Integer subActivityId;
     private Activity activity;
     private String subActivityName;
+    private String email;
     private String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate startDate;
