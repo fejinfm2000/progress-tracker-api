@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface ActivityRepository extends JpaRepository<Activity, Integer> {
 
-    Activity findByActivityName(String activityName);
+    Activity findByActivityNameAndUser_Email(String activityName, String email);
 
     List<Activity> findByUser_UserId(Integer userId);
 

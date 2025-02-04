@@ -24,7 +24,7 @@ public interface Service {
 
     List<VisitorDto> getVisitor();
 
-    List<SubActivityDto> getSubActivity(Integer activityId);
+    List<SubActivityDto> getSubActivity(Integer activityId, String email);
 
     UserDto isUserPersent(String email, String passwordHash);
 

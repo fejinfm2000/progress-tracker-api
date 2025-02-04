@@ -18,6 +18,8 @@ public class SubActivityRequestDto {
 
     private Integer subActivityId;
     private String activityName;
+    private String categoryName;
+    private String email;
     private String subActivityName;
     private String description;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")

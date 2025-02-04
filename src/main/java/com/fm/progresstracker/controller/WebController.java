@@ -67,13 +67,6 @@ public class WebController {
         return new ResponseEntity<>(visitorList, HttpStatus.OK);
     }
 
-    @GetMapping("/getSubActivity/{activityId}")
-    public ResponseEntity<List<SubActivityDto>> getSubActivity(@PathVariable Integer activityId) {
-        log.info("getSubActivity");
-        List<SubActivityDto> subActivityDtos = Service.getSubActivity(activityId);
-        return new ResponseEntity<>(subActivityDtos, HttpStatus.OK);
-    }
-
     @GetMapping("/isUserPersent")
     public ResponseEntity<UserDto> isUserPersent(@RequestParam String email, @RequestParam String passwordHash) {
         log.info("isUserPersent");
@@ -95,6 +88,31 @@ public class WebController {
         return new ResponseEntity<>(catagoryResponse, HttpStatus.OK);
     }
 
+    @GetMapping("/getTodayNews")
+    public ResponseEntity<NewsDto> getTodayNews() {
+        log.info("getTodayNews");
+        NewsDto newsDtos = Service.getTodayNews();
+        return new ResponseEntity<>(newsDtos, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllCatagories")
+    public ResponseEntity<List<CategoryDto>> getAllCatagory() {
+        log.info("getAllCatagory");
+        List<CategoryDto> categoryDtos = Service.getAllCatagory();
+        return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
+    }
+
+    /*
+    User Specific
+     */
+
+    @GetMapping("/getAllActivities")
+    public ResponseEntity<UserActivityResponseDto> getAllActivities(@RequestParam String userEmail) {
+        log.info("getAllActivities");
+        UserActivityResponseDto userActivityResponse = Service.getAllActivities(userEmail);
+        return new ResponseEntity<>(userActivityResponse, HttpStatus.OK);
+    }
+
     @PatchMapping("/addActivity")
     public ResponseEntity<ActivityDto> addActivity(@RequestBody ActivityRequestDto activity) {
         log.info("addActivity");
@@ -109,13 +127,6 @@ public class WebController {
         return new ResponseEntity<>(activityDto, HttpStatus.OK);
     }
 
-    @GetMapping("/getAllActivities")
-    public ResponseEntity<UserActivityResponseDto> getAllActivities(@RequestParam String userEmail) {
-        log.info("getAllActivities");
-        UserActivityResponseDto userActivityResponse = Service.getAllActivities(userEmail);
-        return new ResponseEntity<>(userActivityResponse, HttpStatus.OK);
-    }
-
     @PatchMapping("/addActivityDetails")
     public ResponseEntity<UserActivityResponseDto> addActivityDetails(@RequestBody ActivityRequestDto activityRequestDto) {
         log.info("addActivityDetails");
@@ -123,17 +134,11 @@ public class WebController {
         return new ResponseEntity<>(activity, HttpStatus.OK);
     }
 
-    @GetMapping("/getAllCatagories")
-    public ResponseEntity<List<CategoryDto>> getAllCatagory() {
-        log.info("getAllCatagory");
-        List<CategoryDto> categoryDtos = Service.getAllCatagory();
-        return new ResponseEntity<>(categoryDtos, HttpStatus.OK);
+    @GetMapping("/getSubActivity/{activityId}")
+    public ResponseEntity<List<SubActivityDto>> getSubActivity(@PathVariable Integer activityId, @RequestParam String email) {
+        log.info("getSubActivity");
+        List<SubActivityDto> subActivityDtos = Service.getSubActivity(activityId, email);
+        return new ResponseEntity<>(subActivityDtos, HttpStatus.OK);
     }
 
-    @GetMapping("/getTodayNews")
-    public ResponseEntity<NewsDto> getTodayNews() {
-        log.info("getTodayNews");
-        NewsDto newsDtos = Service.getTodayNews();
-        return new ResponseEntity<>(newsDtos, HttpStatus.OK);
-    }
 }

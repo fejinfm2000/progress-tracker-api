@@ -84,9 +84,8 @@ public class ServiceImplementation implements Service {
         return CommonMapper.INSTENCE.toViositorList(visitorRepository.findAll());
     }
 
-    public List<SubActivityDto> getSubActivity(Integer activityId) {
-        System.out.println("hlo");
-        return CommonMapper.INSTENCE.toSubActivityDtoList(subActivityRepository.findByActivity_ActivityId(activityId));
+    public List<SubActivityDto> getSubActivity(Integer activityId, String email) {
+        return CommonMapper.INSTENCE.toSubActivityDtoList(subActivityRepository.findByActivity_ActivityIdAndActivity_User_Email(activityId, email));
     }
 
     public UserDto isUserPersent(String email, String passwordHash) {
@@ -105,7 +104,7 @@ public class ServiceImplementation implements Service {
     }
 
     public ActivityDto addActivity(ActivityRequestDto activityDto) {
-        Activity activity = activityRepository.findByActivityName(activityDto.getActivityName());
+        Activity activity = activityRepository.findByActivityNameAndUser_Email(activityDto.getActivityName(), activityDto.getEmail());
         if (activity == null) {
             Category category = categoriesRepository.findByCategoryName(activityDto.getCategoryName());
             User user = findByUserEmail(activityDto.getEmail());
@@ -126,16 +125,18 @@ public class ServiceImplementation implements Service {
     }
 
     public SubActivityDto addSubActivity(SubActivityRequestDto activityDto) {
-        SubActivity subActivity = subActivityRepository.findBySubActivityName(activityDto.getSubActivityName());
-
+        SubActivity subActivity = subActivityRepository.findBySubActivityNameAndActivity_ActivityNameAndActivity_User_Email(activityDto.getActivityName(), activityDto.getSubActivityName(), activityDto.getEmail());
         if (subActivity == null) {
-            Activity activity = activityRepository.findByActivityName(activityDto.getActivityName());
+            Activity activity = activityRepository.findByActivityNameAndUser_Email(activityDto.getActivityName(), activityDto.getEmail());
+            if (activity == null) {
+                throw new NotFound("Activity Not available");
+            }
             subActivity = SubActivity.builder()
                     .description(activityDto.getDescription())
                     .subActivityName(activityDto.getSubActivityName())
                     .progress(activityDto.getProgress())
                     .endDate(activityDto.getEndDate())
-                    .startDate(LocalDate.now())
+                    .startDate(activityDto.getStartDate() != null ? activityDto.getStartDate() : LocalDate.now())
                     .status(activityDto.getStatus())
                     .activity(activity)
                     .build();
@@ -150,7 +151,7 @@ public class ServiceImplementation implements Service {
 
         List<Activity> activity = activityRepository.findByUser_UserId(user.getUserId());
 
-        List<SubActivity> subActivity = subActivityRepository.findByActivity_ActivityNameIn(activity.stream().map(Activity::getActivityName).toList());
+        List<SubActivity> subActivity = subActivityRepository.findByActivity_ActivityNameInAndActivity_User_Email(activity.stream().map(Activity::getActivityName).toList(), userEmail);
         List<Category> categories = categoriesRepository.findByCategoryNameIn(activity.stream().map(data -> data.getCategory().getCategoryName()).toList());
 
         return UserActivityResponseDto.builder()
@@ -173,11 +174,12 @@ public class ServiceImplementation implements Service {
         activityRequestDto.getSubActivities().forEach(data -> {
             SubActivityRequestDto subActivity = SubActivityRequestDto.builder()
                     .activityName(activityDto.getActivityName())
-                    .description(activityDto.getDescription())
-                    .subActivityName(data)
-                    .status("Started")
-                    .progress(BigDecimal.ZERO)
-                    .startDate(LocalDate.now())
+                    .description(data.getDescription())
+                    .subActivityName(data.getSubActivityName())
+                    .status(data.getStatus())
+                    .email(activityRequestDto.getEmail())
+                    .progress(data.getProgress() != null ? data.getProgress() : BigDecimal.ZERO)
+                    .startDate(activityRequestDto.getEndDate() != null ? activityRequestDto.getEndDate() : LocalDate.now())
                     .endDate(activityRequestDto.getEndDate())
                     .build();
             addSubActivity(subActivity);

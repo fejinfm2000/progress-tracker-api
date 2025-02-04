@@ -1,6 +1,7 @@
 package com.fm.progresstracker.dto;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fm.progresstracker.entity.Activity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +21,9 @@ public class SubActivityDto {
     private Activity activity;
     private String subActivityName;
     private String description;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate startDate;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     private BigDecimal progress;
     private String status;

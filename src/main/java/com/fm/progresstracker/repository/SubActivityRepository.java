@@ -9,9 +9,9 @@ import java.util.List;
 @Repository
 public interface SubActivityRepository extends JpaRepository<SubActivity, Integer> {
 
-    List<SubActivity> findByActivity_ActivityNameIn(List<String> activityId);
+    List<SubActivity> findByActivity_ActivityNameInAndActivity_User_Email(List<String> activityId, String email);
 
-    List<SubActivity> findByActivity_ActivityId(Integer activityId);
+    List<SubActivity> findByActivity_ActivityIdAndActivity_User_Email(Integer activityId, String email);
 
-    SubActivity findBySubActivityName(String subActivityName);
+    SubActivity findBySubActivityNameAndActivity_ActivityNameAndActivity_User_Email(String subActivityName, String activityName, String email);
 }

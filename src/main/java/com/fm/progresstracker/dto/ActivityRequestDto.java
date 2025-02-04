@@ -21,7 +21,7 @@ public class ActivityRequestDto {
     private String email;
     private String activityName;
     private String description;
-    private List<String> subActivities;
+    private List<SubActivityDto> subActivities;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private LocalDate startDate;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
