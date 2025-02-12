@@ -136,7 +136,7 @@ public class ServiceImplementation implements Service {
     }
 
     public SubActivityDto addSubActivity(SubActivityRequestDto activityDto) {
-        SubActivity subActivity = subActivityRepository.findBySubActivityNameAndActivity_ActivityNameAndActivity_User_Email(activityDto.getActivityName(), activityDto.getSubActivityName(), activityDto.getEmail());
+        SubActivity subActivity = subActivityRepository.findBySubActivityIdAndActivity_ActivityNameAndActivity_User_Email(activityDto.getSubActivityId(), activityDto.getActivityName(), activityDto.getEmail());
         if (subActivity == null) {
             Activity activity = activityRepository.findByActivityNameAndUser_Email(activityDto.getActivityName(), activityDto.getEmail());
             if (activity == null) {
@@ -187,6 +187,7 @@ public class ServiceImplementation implements Service {
                     .activityName(activityDto.getActivityName())
                     .description(data.getDescription())
                     .subActivityName(data.getSubActivityName())
+                    .subActivityId(data.getSubActivityId())
                     .status(data.getStatus())
                     .email(activityRequestDto.getEmail())
                     .progress(data.getProgress() != null ? data.getProgress() : BigDecimal.ZERO)
