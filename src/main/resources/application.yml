@@ -4,7 +4,7 @@ spring:
       matching-strategy: ant_path_matcher # Ensure compatibility with SpringDoc OpenAPI
 
   datasource:
-    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:progress_tracker}
+    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:3306}/${DATABASE_NAME:progress_tracker}?sslMode=REQUIRED&allowPublicKeyRetrieval=true
     username: ${DATABASE_USER:root}
     password: ${DATABASE_PASSWORD:root}
     driver-class-name: com.mysql.cj.jdbc.Driver
